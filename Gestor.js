@@ -4,6 +4,8 @@ const moment = require('moment');
 const { format } = require('path');
 const { compileFunction } = require('vm');
 
+//Este scrip estudia los resutados de un conjunto de operaciones en el mercado de NY para determinar cual es la gestión del riesgo más potencialmente rentable 
+//Considera 5 tipos diferentes de gestión de las operaciones que están descritas más abajo
 async function Inicio() {
     
     let velas_desde_senal = 0;
@@ -19,7 +21,7 @@ async function Inicio() {
         stop_loss: 150.18,
 
     }
-
+    //Calcula todas las estadísticas para una operación determinada
     operación.unidad_riesgo = Math.abs(Math.round( (operación.entrada - operación.stop_loss) * 100000 ) / 100000);
     operación.lotes = Math.round(riesgo / operación.unidad_riesgo);
     operación.tercio = (dirección == "L")? Math.round((operación.entrada + (operación.unidad_riesgo * 2 / 3))*100000) / 100000 : Math.round((operación.entrada - (operación.unidad_riesgo * 2 / 3))*100000) / 100000;
